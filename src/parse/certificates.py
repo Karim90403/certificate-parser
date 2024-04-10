@@ -35,16 +35,3 @@ def get_certificates_data() -> List[dict]:
             testing_labs=get_certificate_detail(item.get('id')),
         ) for item in response_dict.get('items')
     ]
-    # item = response_dict.get('items')[0]
-    # return [
-    #     dict(
-    #         url=f"https://pub.fsa.gov.ru/rss/certificate/view/{item.get('id')}/baseInfo",
-    #         status=id_dict[item.get('idStatus')],
-    #         number=item.get('number'),
-    #         date=item.get('date'),
-    #         end_date=item.get('endDate'),
-    #         applicant=item.get('applicantName'),
-    #         indetification_name=item.get('productIdentificationName'),
-    #         testing_labs=get_certificate_detail(item.get('id')),
-    #     )
-    # ]
