@@ -1,2 +1,0 @@
-class DataBaseError(Exception):
-    pass
