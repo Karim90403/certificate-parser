@@ -1,11 +1,14 @@
+from functools import lru_cache
+
 import requests
 
-from src.common.requests_data import id_cookies
+from src.common.requests_data import cookies
 from src.parse.headers import get_headers
 
 
-def get_id_dict() -> dict:
-    response = requests.post('https://pub.fsa.gov.ru/nsi/api/status/get', cookies=id_cookies, headers=get_headers(), json={})
+@lru_cache(typed=True)
+def get_status_ids() -> dict:
+    response = requests.post('https://pub.fsa.gov.ru/nsi/api/status/get', cookies=cookies, headers=get_headers(), json={})
     id_dict = {}
 
     for item in response.json().get("items"):
