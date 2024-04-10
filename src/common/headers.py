@@ -1,6 +1,7 @@
 from functools import lru_cache
 
 import requests
+from loguru import logger
 
 
 @lru_cache(typed=True)
@@ -23,7 +24,9 @@ def get_headers():
     }
 
     res = requests.post('https://pub.fsa.gov.ru/login', headers=headers,
-                         json={'username': 'anonymous', 'password': 'hrgesf7HDR67Bd',})
+                        json={'username': 'anonymous', 'password': 'hrgesf7HDR67Bd', })
     headers['Authorization'] = res.headers.get('Authorization')
+
+    logger.info('Successfully logged in!')
 
     return headers
