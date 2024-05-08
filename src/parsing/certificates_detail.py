@@ -1,3 +1,5 @@
+import time
+
 import requests
 from loguru import logger
 
@@ -13,6 +15,7 @@ def get_certificate_detail(certificate_id: str) -> dict:
     response_dict = response.json()
 
     logger.info(f"Parsing certificate: {certificate_id}...")
+    time.sleep(.5)
 
     return dict(
         identifications=[
@@ -31,3 +34,4 @@ def get_certificate_detail(certificate_id: str) -> dict:
             for lab in response_dict.get("testingLabs", [])],
         certification_authority_name=response_dict.get("certificationAuthority", {}).get("fullName")
     )
+
