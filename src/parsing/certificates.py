@@ -1,25 +1,19 @@
 from typing import List
 
 import requests
+from common.config import settings
+from common.headers import get_headers
 from loguru import logger
-
-from src.common.config import settings
-from src.common.headers import get_headers
-from src.parsing.certificates_detail import get_certificate_detail
-from src.parsing.status_ids import get_status_ids
+from parsing.certificates_detail import get_certificate_detail
+from parsing.status_ids import get_status_ids
 
 
-def get_certificates_data(product_name) -> List[dict]:
+def get_certificates_data() -> List[dict]:
     query = {
         "size": 100,
         "page": 0,
         "filter": {
-            "columnsSearch": [
-                {
-                    "column": "productFullName",
-                    "search": product_name,
-                },
-            ],
+            "idGroupEEU": settings.project.searched_id,
         },
         "columnsSort": [
             {
@@ -40,7 +34,9 @@ def get_certificates_data(product_name) -> List[dict]:
     if response_dict.get("total") == 0:
         raise ValueError("No certificates in response")
 
-    logger.info(f"Starting parsing certificates with product_name = {product_name}, total = {response_dict.get('total')}...")
+    logger.info(
+        f"Starting parsing certificates with product_name = {settings.project.product_name}, total = {response_dict.get('total')}..."
+    )
 
     return [
         dict(
@@ -53,5 +49,6 @@ def get_certificates_data(product_name) -> List[dict]:
             manufactorer=item.get("manufacterName"),
             indetification_name=item.get("productIdentificationName"),
             testing_labs=get_certificate_detail(item.get("id")),
-        ) for item in response_dict.get("items")
+        )
+        for item in response_dict.get("items")
     ]

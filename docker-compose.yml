@@ -1,0 +1,9 @@
+version: '3.7'
+
+services:
+  certificate_parser:
+    container_name: certificate_parser
+    build:
+      context: .
+      dockerfile: docker/certificate_parser/Dockerfile
+      target: server

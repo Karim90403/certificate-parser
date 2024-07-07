@@ -6,6 +6,8 @@ __pycache__/
 # C extensions
 *.so
 
+*.xlsx
+
 # Distribution / packaging
 .Python
 build/
@@ -161,3 +163,4 @@ cython_debug/
 /.idea/certificate-parser.iml
 /АСМ.json
 /УВЭОС.json
+/src/*.xlsx
