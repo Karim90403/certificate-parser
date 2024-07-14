@@ -12,7 +12,8 @@ class ProjectConfig(BaseSettings):
     debug: bool = Field(default=False)
     base_dir: str = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
     searched_id: list[int] = Field(default=[])
-    product_names: str = Field(default="УВЭОС")
+    product_name: str = Field(default="УВЭОС")
+    max_response_size: int = Field(default=1000)
     token: str = Field(default="")
 
     @property

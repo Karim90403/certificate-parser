@@ -10,7 +10,7 @@ from parsing.status_ids import get_status_ids
 
 def get_certificates_data() -> List[dict]:
     query = {
-        "size": 100,
+        "size": settings.project.max_response_size,
         "page": 0,
         "filter": {
             "idGroupEEU": settings.project.searched_id,
@@ -41,7 +41,7 @@ def get_certificates_data() -> List[dict]:
     return [
         dict(
             url=f"https://pub.fsa.gov.ru/rss/certificate/view/{item.get('id')}/baseInfo",
-            status=get_status_ids()[item.get("idStatus")],
+            status=get_status_ids().get(item.get("idStatus"), "Invalid id"),
             number=item.get("number"),
             date=item.get("date"),
             end_date=item.get("endDate"),

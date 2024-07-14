@@ -27,7 +27,7 @@ def create_exel_tables(certificates: list[dict]):
     ]
 
     df = pd.DataFrame(certificates_data)
-    df.to_excel(f"{settings.project.product_name}.xlsx", header=False, index=False)
+    df.to_excel(f"{settings.project.product_name}.xlsx", index=False)
 
 
 @asyncio_run
