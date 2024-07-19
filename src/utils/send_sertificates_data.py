@@ -35,11 +35,12 @@ async def send_certificates_data():
     try:
         certificates: list[dict] = get_certificates_data()
         create_exel_tables(certificates)
-        updates = await bot.get_updates()
-        for update in updates:
-            chat_id = update.message.chat_id
-            await bot.send_document(chat_id=chat_id, document=f"{settings.project.product_name}.xlsx")
-            time.sleep(1)  # Пауза между отправкой сообщений
+        if not settings.project.debug:
+            updates = await bot.get_updates()
+            for update in updates:
+                chat_id = update.message.chat_id
+                await bot.send_document(chat_id=chat_id, document=f"{settings.project.product_name}.xlsx")
+                time.sleep(1)  # Пауза между отправкой сообщений
         logger.info("Successfully ended sending data")
     except Exception as e:
         logger.opt(exception=e).error(e)

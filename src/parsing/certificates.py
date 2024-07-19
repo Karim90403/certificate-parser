@@ -22,6 +22,7 @@ def get_certificates_data() -> List[dict]:
             },
         ],
     }
+    # Максимальный размер скачиваемых данных и группы по которым мы ищем задаются в среде приложения
 
     res = requests.post(
         "https://pub.fsa.gov.ru/api/v1/rss/common/certificates/get",
